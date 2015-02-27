@@ -166,7 +166,7 @@ public class TextBuddy {
 /*****************************************************************************************************/
 	
 	//read data from the .txt file
-	private static void readFromFile(File textBuddy) throws Exception {	
+	public static void readFromFile(File textBuddy) throws Exception {	
 		
 		FileInputStream fstream = new FileInputStream(textBuddy);
 		DataInputStream in = new DataInputStream(fstream);
@@ -180,7 +180,7 @@ public class TextBuddy {
 		in.close();
 	}
 	//write data back to .txt file
-	private static void writeToFile(File textBuddy) throws Exception {
+	public static void writeToFile(File textBuddy) throws Exception {
 		textBuddy.delete();
 		textBuddy.createNewFile();
 		String newLine="\n";
@@ -194,7 +194,7 @@ public class TextBuddy {
 	}
 	
 	//add item to the vector and write to the .txt file
-	private static void addItem(String userInput, File textBuddy){
+	public static void addItem(String userInput, File textBuddy){
 		try {
 			textBuddyVector.add(userInput);
 			writeToFile(textBuddy);
@@ -205,7 +205,7 @@ public class TextBuddy {
 	}
 	
 	//delete item from the .txt file
-	private static void deleteItem(int deleteIndex, File textBuddy){
+	public static void deleteItem(int deleteIndex, File textBuddy){
 			try {
 				String strToDelete;
 				strToDelete = new String(textBuddyVector.elementAt(deleteIndex - 1).toString());   
@@ -219,7 +219,7 @@ public class TextBuddy {
 	}
 	
 	//display elements in the .txt file
-	private static void displayFile(){
+	public static void displayFile(){
 		try {
 			if(textBuddyVector.size()==0)
 				System.out.println(MESSAGE_EMPTY);
@@ -233,7 +233,7 @@ public class TextBuddy {
 	}
 	
 	//clear everything in the .txt file
-	private static void clearItem(File textBuddy){
+	public static void clearItem(File textBuddy){
 		try {
 			textBuddyVector.removeAllElements();
 			System.out.println(String.format(MESSAGE_CLEAR, textBuddy));
@@ -243,7 +243,7 @@ public class TextBuddy {
 		}
 	}
 	
-	private static Vector<String> searchItem(String searchString) {
+	public static Vector<String> searchItem(String searchString) {
 		try {
 			int flag = 0;
 			Vector<String> searchVector=new Vector<String>(); 
@@ -266,7 +266,7 @@ public class TextBuddy {
 		return null;
 	}
 	
-	private static Vector<String> sortItem(File textBuddy) {
+	public static Vector<String> sortItem(File textBuddy) {
 		try {
 			Collections.sort(textBuddyVector);
 			writeToFile(textBuddy);
