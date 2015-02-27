@@ -30,8 +30,8 @@ public class TextBuddy {
 		ADD, DELETE, CLEAR, DISPLAY, EXIT, SEARCH, SORT, INVALID
 	};
 	
-
-	private static Vector<String> textBuddyVector = new Vector<String>();
+	private static TextBuddyMethods textBuddyMethods;
+	
 	
 	public static void main(String args[]){
 		String fileName = args[0];
@@ -61,16 +61,17 @@ public class TextBuddy {
 	
 /*****************************************************************************************************/	
 	//this section contains methods to read, process and execute user commands
-	public void executeCommand(String fileName, File textBuddy){
+	public void executeCommand(String fileName){
 		
 		File textBuddy = new File(fileName);
 		createFile(textBuddy);
 		
 		OPTION_TYPE userCommand=null;
+		textBuddyMethods = new TextBuddyMethods(fileName);
 
 		do{
 			userCommand=readCommand();
-			processCommand(userCommand, textBuddy);
+			processCommand(userCommand, textBuddyMethods);
 		}
 		while(userCommand!= userCommand.EXIT);
 		
@@ -108,7 +109,7 @@ public class TextBuddy {
 	}
 		
 	//to process the command and call the methods respectively
-	private static void processCommand(OPTION_TYPE command, File textBuddy){
+	private static void processCommand(OPTION_TYPE command, TextBuddyMethods textBuddyMethods){
 		
  		try{	
  			
@@ -118,23 +119,23 @@ public class TextBuddy {
 					break;
 				
 	 		case ADD:
-					textBuddy.addItem(inputVector[1]);
+					textBuddyMethods.addItem(inputVector[1]);
 					break;	
 				
 	 		case DELETE:
 					int index= Integer.parseInt(inputVector[1]); 
-					textBuddy.deleteItem(index);
+					textBuddyMethods.deleteItem(index);
 					break;
 				
 	 		case CLEAR:
-					textBuddy.clearItem();
+					textBuddyMethods.clearItem();
 					break;
 				
 	 		case DISPLAY:
-					textBuddy.displayFile();
+					textBuddyMethods.displayFile();
 					break;
 			case SEARCH:
-					Vector<String> search = textBuddy.searchItem(inputVector[1].trim());
+					Vector<String> search = textBuddyMethods.searchItem(inputVector[1].trim());
 					for(int i=0;i<search.size();i++)
 					{
 						System.out.println(search.elementAt(i));
@@ -142,7 +143,7 @@ public class TextBuddy {
 					break;
 
 			case SORT:
-				 	textBuddy.sortItem(); 
+				 	textBuddyMethods.sortItem(); 
 					break;
 					
 	 		}
