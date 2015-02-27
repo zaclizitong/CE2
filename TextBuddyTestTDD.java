@@ -25,7 +25,6 @@ public class TextBuddyTestTDD {
 		String fileName= "Search.txt" ;
 	
 		TextBuddy testFile =new TextBuddy(fileName);
-		File textBuddy = new File();
 		testFile.addItem("BIZ BSP2001",textBuddy); 
 		testFile.addItem("Tembusu IEM2201P",textBuddy);
 		testFile.addItem("Tembusu GEM2902",textBuddy);
@@ -60,7 +59,6 @@ public class TextBuddyTestTDD {
 		String fileName= "Sort.txt" ;
 	
 		TextBuddy testFile = new TextBuddy(fileName);
-		File textBuddy = new File();
 		testFile.displayFile();
 		testFile.addItem("CS2103",textBuddy); 
 		testFile.addItem("FIN2004",textBuddy);
