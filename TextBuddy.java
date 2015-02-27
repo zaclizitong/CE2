@@ -3,6 +3,7 @@ This program is a Command Line Interface program called TextBuddy
 Name: LI ZITONG
 Matric Number: A0115635J
 Tutorial Group: 10
+CE2: The architecture of the prgramme changed from CE1 due to TDD
 */
 
 import java.util.*;
@@ -10,13 +11,14 @@ import java.io.*;
 
 public class TextBuddy {
 	
-	//all messages for user
+	
 	private static final String WELCOME_MESSAGE = "Welcome to TextBuddy. %1$s is ready for use";
 	
 	//messages for possible errors
 	private static final String ERROR_READ_INPUT="Unable to extract user command from input. System Error: ";
 	private static final String ERROR_INPUT="Error getting user command. System Error: ";
 	private static final String ERROR_PROCESS_COMMAND ="Error executing the command: ";
+	private static final String ERROR_FILE = "Error (File exists)";
 	
 	//varibles to read inout
 	private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -30,17 +32,18 @@ public class TextBuddy {
 		ADD, DELETE, CLEAR, DISPLAY, EXIT, SEARCH, SORT, INVALID
 	};
 	
+	//create the TextBUddyMethods to use
 	private static TextBuddyMethods textBuddyMethods;
-	
 	
 	public static void main(String args[]){
 		String fileName = args[0];
 		printMessage(fileName);
-		executeCommand(fileName, textBuddy);
+		executeCommand(fileName);
 		System.exit(0);
-		
-		
+			
 	}
+	
+
 	
 	//print welcome message
 	public static void printMessage(String fileName){
@@ -61,11 +64,11 @@ public class TextBuddy {
 	
 /*****************************************************************************************************/	
 	//this section contains methods to read, process and execute user commands
-	public void executeCommand(String fileName){
+	public static void executeCommand(String fileName){	
 		
 		File textBuddy = new File(fileName);
 		createFile(textBuddy);
-		
+	
 		OPTION_TYPE userCommand=null;
 		textBuddyMethods = new TextBuddyMethods(fileName);
 
@@ -78,7 +81,7 @@ public class TextBuddy {
 	}
 		
 	//to get the user input and extract the command
-	private static OPTION_TYPE readCommand(){
+	public static OPTION_TYPE readCommand(){
 		
 		String input;
 		OPTION_TYPE choice=null;
@@ -109,7 +112,7 @@ public class TextBuddy {
 	}
 		
 	//to process the command and call the methods respectively
-	private static void processCommand(OPTION_TYPE command, TextBuddyMethods textBuddyMethods){
+	public static void processCommand(OPTION_TYPE command, TextBuddyMethods textBuddyMethods){
 		
  		try{	
  			
@@ -135,17 +138,16 @@ public class TextBuddy {
 					textBuddyMethods.displayFile();
 					break;
 			case SEARCH:
-					Vector<String> search = textBuddyMethods.searchItem(inputVector[1].trim());
+			 	Vector<String> search = textBuddyMethods.searchItem(inputVector[1].trim());
 					for(int i=0;i<search.size();i++)
 					{
 						System.out.println(search.elementAt(i));
 					}
 					break;
 
-			case SORT:
-				 	textBuddyMethods.sortItem(); 
-					break;
-					
+			 case SORT:
+		 			textBuddyMethods.sortItem(); 
+					break;		
 	 		}
  		}
 	
