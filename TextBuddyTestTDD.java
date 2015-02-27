@@ -25,10 +25,11 @@ public class TextBuddyTestTDD {
 		String fileName= "Search.txt" ;
 	
 		TextBuddy testFile =new TextBuddy(fileName);
-		testFile.addItem("BIZ BSP2001"); 
-		testFile.addItem("Tembusu IEM2201P");
-		testFile.addItem("Tembusu GEM2902");
-		testFile.addItem("BIZ FIN2004");
+		File textBuddy = new File();
+		testFile.addItem("BIZ BSP2001",textBuddy); 
+		testFile.addItem("Tembusu IEM2201P",textBuddy);
+		testFile.addItem("Tembusu GEM2902",textBuddy);
+		testFile.addItem("BIZ FIN2004",textBuddy);
     
 		Vector<String> temp = testFile.searchItem("BIZ");
 	
@@ -38,7 +39,7 @@ public class TextBuddyTestTDD {
 	
 		assertEquals(temp,Test); //compare the output and expected
 	
-		testFile.clearItem();
+		testFile.clearItem(textBuddy);
 	}
 
 	
@@ -59,16 +60,17 @@ public class TextBuddyTestTDD {
 		String fileName= "Sort.txt" ;
 	
 		TextBuddy testFile = new TextBuddy(fileName);
+		File textBuddy = new File();
 		testFile.displayFile();
-		testFile.addItem("CS2103"); 
-		testFile.addItem("FIN2004");
-		testFile.addItem("BSP2001");
+		testFile.addItem("CS2103",textBuddy); 
+		testFile.addItem("FIN2004",textBuddy);
+		testFile.addItem("BSP2001",textBuddy);
 	  
-		Vector<String> temp = testFile.sortItem();
+		Vector<String> temp = testFile.sortItem(textBuddy);
 	
 		assertEquals(temp,Test); //compare the output and expected
 	
-		testFile.clearItem();
+		testFile.clearItem(textBuddy);
 	} 
 
 }
