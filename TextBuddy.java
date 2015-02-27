@@ -38,7 +38,7 @@ public class TextBuddy {
 
 	//Definition of variables for user commands
 	enum OPTION_TYPE{
-		ADD, DELETE, CLEAR, DISPLAY, EXIT, INVALID
+		ADD, DELETE, CLEAR, DISPLAY, EXIT, SEARCH, SORT, INVALID
 	};
 	
 
@@ -143,6 +143,17 @@ public class TextBuddy {
 	 		case DISPLAY:
 					displayFile();
 					break;
+			case SEARCH:
+					Vector<String> search = textBuddy.searchItem(inputVector[1].trim());
+					for(int i=0;i<search.size();i++)
+					{
+						System.out.println(search.elementAt(i));
+					}
+					break;
+
+			case SORT:
+				 	textBuddy.sortItem(); 
+					break;
 					
 	 		}
  		}
@@ -230,6 +241,43 @@ public class TextBuddy {
 		} catch (Exception e) {
 			System.out.println(ERROR_CLEAR + e.getMessage());
 		}
+	}
+	
+	private static Vector<String> searchItem(String searchString) {
+		try {
+			int flag = 0;
+			Vector<String> searchVector=new Vector<String>(); 
+			for (int i = 0; i < textBuddyVector.size(); i++) {
+				String temp = textBuddyVector.elementAt(i).toString().toLowerCase(); 
+				if (temp.contains(searchString.toLowerCase())) {
+					flag = 1;
+					searchVector.add((i+1)+". "+textBuddyVector.elementAt(i)); 
+				} 
+			}
+			
+			if (flag == 0)
+				System.out.println("String Not Found!");
+			
+			return searchVector;
+
+		} catch (Exception e) {
+			System.out.println(ERROR_SEARCH + e.getMessage());
+		}
+		return null;
+	}
+	
+	private static Vector<String> sortItem(File textBuddy) {
+		try {
+			Collections.sort(textBuddyVector);
+			writeToFile(textBuddy);
+			System.out.println(String.format(MESSAGE_SORT));	
+			return textBuddyVector;
+		}
+
+		catch (Exception e) {
+			System.out.println(ERROR_SORT + e.getMessage());
+		}
+		return null;
 	}
 		
 }
