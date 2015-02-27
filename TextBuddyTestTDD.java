@@ -1,5 +1,5 @@
 /*
-TDD 
+TDD for the newly implemented sortItem and searchItem for the newly created TextBuddyMethods class
 */
 
 import org.junit.*;
@@ -24,7 +24,7 @@ public class TextBuddyTestTDD {
 	
 		String fileName= "Search.txt" ;
 	
-		TextBuddy testFile =new TextBuddy(fileName);
+		TextBuddyMethods testFile =new TextBuddyMethods(fileName);
 		testFile.addItem("BIZ BSP2001"); 
 		testFile.addItem("Tembusu IEM2201P");
 		testFile.addItem("Tembusu GEM2902");
@@ -58,7 +58,7 @@ public class TextBuddyTestTDD {
 	
 		String fileName= "Sort.txt" ;
 	
-		TextBuddy testFile = new TextBuddy(fileName);
+		TextBuddyMethods testFile = new TextBuddyMethods(fileName);
 		testFile.displayFile();
 		testFile.addItem("CS2103"); 
 		testFile.addItem("FIN2004");
