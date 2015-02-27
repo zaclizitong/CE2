@@ -74,7 +74,7 @@ public class TextBuddy {
 	
 /*****************************************************************************************************/	
 	//this section contains methods to read, process and execute user commands
-	private static void executeCommand(String fileName, File textBuddy){
+	public void executeCommand(String fileName, File textBuddy){
 		
 		OPTION_TYPE userCommand=null;
 
@@ -128,20 +128,20 @@ public class TextBuddy {
 					break;
 				
 	 		case ADD:
-					addItem(inputVector[1], textBuddy);
+					textBuddy.addItem(inputVector[1]);
 					break;	
 				
 	 		case DELETE:
 					int index= Integer.parseInt(inputVector[1]); 
-					deleteItem(index, textBuddy);
+					textBuddy.deleteItem(index);
 					break;
 				
 	 		case CLEAR:
-					clearItem(textBuddy);
+					textBuddy.clearItem();
 					break;
 				
 	 		case DISPLAY:
-					displayFile();
+					textBuddy.displayFile();
 					break;
 			case SEARCH:
 					Vector<String> search = textBuddy.searchItem(inputVector[1].trim());
@@ -166,7 +166,7 @@ public class TextBuddy {
 /*****************************************************************************************************/
 	
 	//read data from the .txt file
-	public static void readFromFile(File textBuddy) throws Exception {	
+	public void readFromFile() throws Exception {	
 		
 		FileInputStream fstream = new FileInputStream(textBuddy);
 		DataInputStream in = new DataInputStream(fstream);
@@ -180,7 +180,7 @@ public class TextBuddy {
 		in.close();
 	}
 	//write data back to .txt file
-	public static void writeToFile(File textBuddy) throws Exception {
+	public void writeToFile() throws Exception {
 		textBuddy.delete();
 		textBuddy.createNewFile();
 		String newLine="\n";
@@ -194,10 +194,10 @@ public class TextBuddy {
 	}
 	
 	//add item to the vector and write to the .txt file
-	public static void addItem(String userInput, File textBuddy){
+	public void addItem(String userInput){
 		try {
 			textBuddyVector.add(userInput);
-			writeToFile(textBuddy);
+			textBuddy.writeToFile();
 			System.out.println(String.format(MESSAGE_ADD, textBuddy, userInput));
 		} catch (Exception e) {
 			System.out.println(ERROR_ADD + e.getMessage());
@@ -205,12 +205,12 @@ public class TextBuddy {
 	}
 	
 	//delete item from the .txt file
-	public static void deleteItem(int deleteIndex, File textBuddy){
+	public void deleteItem(int deleteIndex){
 			try {
 				String strToDelete;
 				strToDelete = new String(textBuddyVector.elementAt(deleteIndex - 1).toString());   
 				textBuddyVector.remove(deleteIndex - 1);
-				writeToFile(textBuddy);
+				textBuddy.writeToFile();
 				System.out.println(String.format(MESSAGE_DELETE, textBuddy,
 						strToDelete));
 			} catch (Exception e) {
@@ -219,7 +219,7 @@ public class TextBuddy {
 	}
 	
 	//display elements in the .txt file
-	public static void displayFile(){
+	public void displayFile(){
 		try {
 			if(textBuddyVector.size()==0)
 				System.out.println(MESSAGE_EMPTY);
@@ -233,17 +233,17 @@ public class TextBuddy {
 	}
 	
 	//clear everything in the .txt file
-	public static void clearItem(File textBuddy){
+	public void clearItem(){
 		try {
 			textBuddyVector.removeAllElements();
 			System.out.println(String.format(MESSAGE_CLEAR, textBuddy));
-			writeToFile(textBuddy);
+			textBuddy.writeToFile();
 		} catch (Exception e) {
 			System.out.println(ERROR_CLEAR + e.getMessage());
 		}
 	}
 	
-	public static Vector<String> searchItem(String searchString) {
+	public Vector<String> searchItem(String searchString) {
 		try {
 			int flag = 0;
 			Vector<String> searchVector=new Vector<String>(); 
@@ -266,10 +266,10 @@ public class TextBuddy {
 		return null;
 	}
 	
-	public static Vector<String> sortItem(File textBuddy) {
+	public Vector<String> sortItem() {
 		try {
 			Collections.sort(textBuddyVector);
-			writeToFile(textBuddy);
+			textBuddy.writeToFile();
 			System.out.println(String.format(MESSAGE_SORT));	
 			return textBuddyVector;
 		}
