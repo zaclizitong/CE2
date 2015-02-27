@@ -46,8 +46,6 @@ public class TextBuddy {
 	
 	public static void main(String args[]){
 		String fileName = args[0];
-		File textBuddy = new File(fileName);
-		createFile(textBuddy);
 		printMessage(fileName);
 		executeCommand(fileName, textBuddy);
 		System.exit(0);
@@ -56,12 +54,12 @@ public class TextBuddy {
 	}
 	
 	//print welcome message
-	private static void printMessage(String fileName){
+	public static void printMessage(String fileName){
 		System.out.println(String.format(WELCOME_MESSAGE, fileName));
 	}
 	
 	//function to create the .txt file based on the name user has chosen
-	private static void createFile(File textbuddy){
+	public static void createFile(File textbuddy){
 		try{
 			if(!textbuddy.exists()){
 				textbuddy.createNewFile();
@@ -75,6 +73,9 @@ public class TextBuddy {
 /*****************************************************************************************************/	
 	//this section contains methods to read, process and execute user commands
 	public void executeCommand(String fileName, File textBuddy){
+		
+		File textBuddy = new File(fileName);
+		createFile(textBuddy);
 		
 		OPTION_TYPE userCommand=null;
 
